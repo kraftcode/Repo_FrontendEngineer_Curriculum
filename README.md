@@ -1,9 +1,9 @@
 # Repo_FrontendEngineer_Curriculum
 Front-End-Engineer Curriculum
 
-This repo implements the execises outlined in the  Frontend Engineer Curriculum course on Github by luhmann.
+This repo implements the exercises outlined in the  Frontend Engineer Curriculum course on Github by luhmann.
 
-1. Environment Setup
+1 Environment Setup
 The project requires the following resources:
 
 1.1 Module Bundler
