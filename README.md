@@ -5,6 +5,7 @@ This repo implements the execises outlined in the  Frontend Engineer Curriculum 
 
 1. Environment Setup
 The project requires the following resources:
+
 1.1 Module Bundler
 - Webpack@2
 
