@@ -2,7 +2,7 @@ import formateDate from './lib/dateFormatter';
 
 export default function () {
 
-  const element = document.createElement('h1');
+const element = document.createElement('h1');
 
   var currentDate = new Date();
 
@@ -10,5 +10,5 @@ export default function () {
 
   element.innerHTML = String(formattedDate);
 
-return element;
+  return element;
 }
