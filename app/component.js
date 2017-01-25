@@ -10,5 +10,5 @@ export default function () {
 
   element.innerHTML = String(formattedDate);
 
-  return element;        
+return element;
 }
