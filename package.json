@@ -4,19 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "validate": "eslint . --cache",
+    "lint": "eslint . --cache",
     "autofixlint": "node_modules/.bin/eslint . --fix",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "build": "webpack --env.target production",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "jshint ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "pre-commit": ["validate", "autofixlint"],
+  "pre-commit": [
+    "autofixlint"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "precommit-hook": "latest",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",
@@ -30,6 +30,7 @@
     "webpack-dev-server": "^2.2.0"
   },
   "dependencies": {
+    "git-validate": "^2.2.2",
     "webpack": "^2.2.0"
   }
 }
