@@ -7,7 +7,7 @@
     "lint": "eslint . --cache",
     "autofixlint": "node_modules/.bin/eslint . --fix",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
-    "build": "webpack --env.target production",
+    "build": "webpack --env production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
@@ -27,7 +27,8 @@
     "html-webpack-plugin": "^2.26.0",
     "nodemon": "^1.11.0",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
+    "webpack-merge": "^2.4.0"
   },
   "dependencies": {
     "git-validate": "^2.2.2",
