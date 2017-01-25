@@ -37,6 +37,7 @@ module.exports = function(env) {
   if (env === 'production') {
     return merge([
       common,
+      parts.loadCSS(),
       parts.lintJavaScript({ paths: PATHS.app }),
     ]);
   }
@@ -48,6 +49,7 @@ module.exports = function(env) {
         new webpack.NamedModulesPlugin(),
       ],
     },
+    parts.loadCSS(),
     parts.devServer({
       // Customize host/port here if needed
       host: process.env.HOST,
