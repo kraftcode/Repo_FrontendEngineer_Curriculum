@@ -4,6 +4,7 @@ module.exports = {
     "commonjs": true,
     "es6": true,
     "node": true,
+    "jest": true
   },
   "extends": "eslint-config-airbnb",
   "extends": "eslint:recommended",
@@ -37,4 +38,3 @@ module.exports = {
     "no-console": 0,
   },
 };
-

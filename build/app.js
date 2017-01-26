@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "cef43712f63b4962752a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "e16d4c3392b493f41494"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -740,11 +740,18 @@
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css__ = __webpack_require__("./app/main.css");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__main_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__component__ = __webpack_require__("./app/component.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_images_demo2_jpg__ = __webpack_require__("./assets/images/demo2.jpg");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assets_images_demo2_jpg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__assets_images_demo2_jpg__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__component__ = __webpack_require__("./app/component.js");
 
 
 
-document.body.appendChild(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__component__["a" /* default */])());
+
+var img = document.createElement('img');
+img.src = __WEBPACK_IMPORTED_MODULE_1__assets_images_demo2_jpg___default.a;
+
+document.body.appendChild(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__component__["a" /* default */])());
+document.body.appendChild(img);
 
 
 /***/ }),
@@ -790,6 +797,20 @@ if(true) {
 
 /***/ }),
 
+/***/ "./assets/images/demo2.jpg":
+/***/ (function(module, exports) {
+
+module.exports = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBxdWFsaXR5ID0gNzAK/9sAQwAKBwcIBwYKCAgICwoKCw4YEA4NDQ4dFRYRGCMfJSQiHyIhJis3LyYpNCkhIjBBMTQ5Oz4+PiUuRElDPEg3PT47/9sAQwEKCwsODQ4cEBAcOygiKDs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7/8AAEQgAMgAyAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A9TW0OMswH0oktLdwY/M+f61xMnxMSWO5jt7Xayvtifdk7c4BIrKufHUscLxsVjuN5AznB9wa5KmOhF2grkJrqztLt4LRnWaeMbP9rn8utUbnxtb2ln9ne1upzIMIyoMdfc1w9pqk908nmN82WB4yc/WtG8eGKx+8Wz0bjr2rgnmNZysopI9OnhYcqbdzdjMF9bLNGXUjk4HQ+4rUM6Qxp57hWPf1rH0nSbhLISThkldWCZOCmQRmqWn6jNI7RlhKA2x0PIBHBB9DVfXnRgpSjq9zmqJObS1R1YlUjPyHPeis8afZsA37wZ5wDwKK7vrfp95nyL+keXx+RPKbh51eVCRIIlUKeOOTjmobi4ihl82384FTmQu6soArX1bwbJDLs04+duYIxJC5PbNUNU8KarbBIhHG7nBaMDue3vXn/V5ReuxxezlqT6feyXdrcPBGuX6YOCR7+9L9pvLiSKa4GIophlMdCDxn8RWpo/hO+sLCTUJVMLRDd5LMM47598VZ1DQ7jUpkXSLfe7nL5OFHfcT0FZOlNTaS9D2MDJOm4VGdrZ38V1YpcHqV5HoaxJdLmHiVNVg2Wlo8Lea4OPOcnj5e/c5qe1ZdLskt7iSG6uEHIjBESH8fvfyqGW6luZtzMzu3QVrJ9Ja+X+ZnCk07l439mD/q5j77gM0VU/s+4PPyDPvRS5I/yr7ka2Xf8SPT7kpf3FhexjewBAI4cex/KtK0trCzdpI4VeVm5dzvc/ieay317RtUZJLnTbkTryDC3T8cirY1iG3jK2NoIWP8cjb2r05VYRW5yRpSb2NW9Nu1myXp8uOT/lmACzD6Vn3N4gsxHCVgjP3YU5JHqxrMe4aWQySOzMepJyTWhpGjT6rJvOY7cdX7n2FcjqTqu0UdMYRpq7KUFvLeSeXChPqew+tasNjHZrx8znqxroTYwWVsIoECqPzPuax7k4JqnQUF5i9rzMreZRUeRRWVi9Dl7MAQLgAcdqsEnPWiipluVElhGZkB5BYda9HslCwqqgAAcAdqKK68L1MK4Xn3K5y8+8aKK1rbGdMonrRRRXGdB//Z"
+
+/***/ }),
+
+/***/ "./assets/images/mytestgif.gif":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "8f640f664c8986fb11697c7446e9312f.gif";
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./app/main.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -798,7 +819,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "body {\n    background: cornsilk;\n    background-image: url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../assets/images/mytestgif.gif\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ");\n}\n", ""]);
+exports.push([module.i, "body {\n    background: cornsilk;\n    background-image: url(" + __webpack_require__("./assets/images/mytestgif.gif") + ");\n}\nh1 {\n  color: blue;\n}\n", ""]);
 
 // exports
 
