@@ -35,12 +35,9 @@ const common = merge([
 
 module.exports = function(env) {
   if (env === 'production') {
-    return merge([
-      common,
-      parts.loadCSS(),
-      parts.lintJavaScript({ paths: PATHS.app }),
-    ]);
-  }
+    //Placeholde. Could do stuff here exclusive to production mode
+    console.log('LOG: env param was: ' + env);
+  } //else...
 
   return merge([
     common,
@@ -50,6 +47,7 @@ module.exports = function(env) {
       ],
     },
     parts.loadCSS(),
+    parts.urlLoader(),
     parts.devServer({
       // Customize host/port here if needed
       host: process.env.HOST,

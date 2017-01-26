@@ -73,3 +73,27 @@ exports.loadCSS = function(paths) {
     },
   };
 };
+
+exports.urlLoader = function() {
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.(jpg|png|gif)$/,
+          loader: 'url-loader',
+          options: {
+            limit: 30000,
+          },
+        },
+        {
+          test: /\.(woff|ttf)$/,
+          loader: 'url-loader',
+          options: {
+            name: 'fonts/[hash].[ext]',
+            limit: 50000,
+          },
+        },
+      ],
+    },
+  };
+};
