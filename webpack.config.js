@@ -46,7 +46,7 @@ module.exports = function(env) {
         new webpack.NamedModulesPlugin(),
       ],
     },
-    parts.cleanWebpackBuild(),
+    parts.clean(PATHS.build),
     parts.generateSourcemaps('eval-source-map'),
     parts.loadCSS(),
     parts.urlLoader(),

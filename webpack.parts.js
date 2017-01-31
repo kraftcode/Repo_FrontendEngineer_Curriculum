@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const myPath = require('path');
 
 exports.devServer = function(options) {
   return {
@@ -118,11 +117,10 @@ exports.generateSourcemaps = function(type) {
   };
 };
 
-exports.cleanWebpackBuild = function() {
-  console.log('ROOT IS RESOLVED TO: ' + myPath.resolve('./'));
-  new CleanWebpackPlugin(['build'], {
-    'root': myPath.resolve('./'),
-    'verbose': true,
-    'dry': false,
-  });
+exports.clean = function(path) {
+  return {
+    plugins: [
+      new CleanWebpackPlugin([path]),
+    ],
+  };
 };
