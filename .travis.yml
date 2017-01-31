@@ -7,7 +7,7 @@ node_js:
 - "iojs"
 
 install:
--npm install
+- npm install
 
 script:
 - ./webpack --env production
