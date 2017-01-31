@@ -40,7 +40,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0",
-    "webpack-merge": "^2.4.0"
+    "webpack-merge": "^2.4.0",
+    "nightwatch": "^0.9.12"
   },
   "dependencies": {
     "git-validate": "^2.2.2",

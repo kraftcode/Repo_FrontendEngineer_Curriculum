@@ -25,8 +25,8 @@ module.exports = {
   'step two' : function (browser) {
     browser
     .waitForElementVisible('body', 1000)
-    .waitForElementVisible('h1', 1000)
-    .expect.element('h1').to.be.present;
+    .waitForElementVisible('h1', 1000) //tests if is visible before second arg
+    .expect.element('h1').to.be.present; //tests presence (redundant)
     browser.end(); // must call end() to properly close testing!
   },
 };

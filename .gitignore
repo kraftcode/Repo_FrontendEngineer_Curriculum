@@ -47,4 +47,4 @@ jspm_packages
 .yarn-integrity
 
 # Build files (in build directory)
-build/
+build
