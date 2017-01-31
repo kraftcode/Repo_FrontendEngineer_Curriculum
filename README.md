@@ -6,7 +6,7 @@ This project requires NodeJS and the Node Package Manager to work.
 ##Getting up and running
 
 **Setting up the environment**
-Open the command line interface (CLI) and enter:
+Open the command line interface (CLI) in the root of the project and enter:
 * npm install
 
 
