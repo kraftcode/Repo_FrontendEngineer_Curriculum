@@ -1,8 +1,9 @@
 import formateDate from '../../lib/dateFormatter';
+const moment = require('moment');
+moment.locale('de');
 
 test('Should correctly formate input date and return it as a String. ', () => {
-  var testDate = new Date('January 20, 2017 08:29:22');
-  console.log('LOGGING: ' + testDate);
-  var resultString = formateDate(testDate);
-  expect(resultString).toBe('2017 M01 20, Fri 08:29:22');
+  let testdate = moment().format('2013-02-08 09:30:26');
+  let resultString = formateDate(testdate);
+  expect(resultString).toBe('Fr. 8. Februar 2013 09:30');
 });

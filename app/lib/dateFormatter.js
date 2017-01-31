@@ -1,5 +1,12 @@
+const moment = require('moment');
+moment.locale('de');
+
 export default function formateDate(date) {
+  let withoutDay = moment(date).format('LLL');
+  let justFullDay = moment(date).format('dddd');
 
-  return date.toLocaleDateString('de-DE', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'});
-
+  // leaving only first two letters of full Day:
+  let abbrDay = justFullDay.substring(0, justFullDay.length - (justFullDay.length-2));
+  
+  return abbrDay.concat('. ' + withoutDay);
 }
