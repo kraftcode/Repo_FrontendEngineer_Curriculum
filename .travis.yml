@@ -15,4 +15,5 @@ install:
 script:
 - eslint . --cache
 - NODE_ENV=test jest
+- nightwatch app/e2e_tests/ --verbose
 - webpack --env production
