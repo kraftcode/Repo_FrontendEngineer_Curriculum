@@ -2,15 +2,12 @@ language: node_js
 node_js:
 - "6"
 - "6.1"
-- "5.11"
-- "0.6"
-- "iojs"
 
 install:
 - npm install
 
 script:
-- ./webpack --env production
-- ./eslint . --cache
-- ./NODE_ENV=test jest
-- ./nightwatch app/__tests__/e2e_tests/ --verbose
+- webpack --env production
+- eslint . --cache
+- NODE_ENV=test jest
+- nightwatch app/__tests__/e2e_tests/ --verbose
