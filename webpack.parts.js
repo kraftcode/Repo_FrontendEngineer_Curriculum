@@ -1,4 +1,6 @@
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const myPath = require('path');
 
 exports.devServer = function(options) {
   return {
@@ -66,7 +68,6 @@ exports.loadCSS = function(paths) {
           // Restrict extraction process to the given
           // paths.
           include: paths,
-
           use: ['style-loader', 'css-loader'],
         },
       ],
@@ -96,4 +97,32 @@ exports.urlLoader = function() {
       ],
     },
   };
+};
+
+exports.minifyJavaScript = function({ useSourceMap }) {
+  return {
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        sourceMap: useSourceMap,
+        compress: {
+          warnings: false,
+        },
+      }),
+    ],
+  };
+};
+
+exports.generateSourcemaps = function(type) {
+  return {
+    devtool: type,
+  };
+};
+
+exports.cleanWebpackBuild = function() {
+  console.log('PATH VARIABLE IS : ' + myPath.resolve('./'));
+  new CleanWebpackPlugin(['build'], {
+    'root': myPath.resolve('./'),
+    'verbose': true,
+    'dry': false,
+  });
 };

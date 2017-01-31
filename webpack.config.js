@@ -23,7 +23,7 @@ const common = merge([
     },
     output: {
       path: PATHS.build,
-      filename: '[name].js',
+      filename: '[name].[hash].js',
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -37,7 +37,7 @@ module.exports = function(env) {
   if (env === 'production') {
     //Placeholde. Could do stuff here exclusive to production mode
     console.log('LOG: env param was: ' + env);
-  } //else...
+  }
 
   return merge([
     common,
@@ -46,6 +46,8 @@ module.exports = function(env) {
         new webpack.NamedModulesPlugin(),
       ],
     },
+    parts.cleanWebpackBuild(),
+    parts.generateSourcemaps('eval-source-map'),
     parts.loadCSS(),
     parts.urlLoader(),
     parts.devServer({
@@ -61,5 +63,6 @@ module.exports = function(env) {
         emitWarning: true,
       },
     }),
+    parts.minifyJavaScript({ useSourceMap: true }),
   ]);
 };
