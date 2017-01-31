@@ -13,4 +13,4 @@ script:
 - webpack --env production
 - eslint . --cache
 - NODE_ENV=test jest
-- nightwatch app/__tests__/e2e_tests/ --verbose
+- nightwatch app/e2e_tests/ --verbose
