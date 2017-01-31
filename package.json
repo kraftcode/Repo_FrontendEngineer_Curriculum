@@ -8,8 +8,8 @@
     "autofixlint": "node_modules/.bin/eslint . --fix",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "build": "webpack --env production",
-    "unittest": "NODE_ENV=test jest",
-    "e2etest": "nightwatch app/__tests__/e2e_tests/ --verbose"
+    "test": "NODE_ENV=test jest",
+    "e2etest": "nightwatch app/e2e_tests/ --verbose"
   },
   "pre-commit": [
     "lint",

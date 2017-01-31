@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="2">
+
+  <testsuite name="sample_e2e_test"
+    errors="0" failures="0" hostname="" id="" package="sample_e2e_test" skipped="0"
+    tests="2" time="1.594" timestamp="Tue, 31 Jan 2017 12:18:30 GMT">
+  
+    <testcase name="step one" time="1.400" assertions="1">
+
+    
+    </testcase>
+  
+    <testcase name="step two" time="0.1940" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>

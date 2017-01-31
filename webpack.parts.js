@@ -119,7 +119,7 @@ exports.generateSourcemaps = function(type) {
 };
 
 exports.cleanWebpackBuild = function() {
-  console.log('PATH VARIABLE IS : ' + myPath.resolve('./'));
+  console.log('ROOT IS RESOLVED TO: ' + myPath.resolve('./'));
   new CleanWebpackPlugin(['build'], {
     'root': myPath.resolve('./'),
     'verbose': true,

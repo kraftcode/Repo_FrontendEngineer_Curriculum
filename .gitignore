@@ -48,6 +48,3 @@ jspm_packages
 
 # Build files (in build directory)
 build/
-
-# reports directory
-reports/
