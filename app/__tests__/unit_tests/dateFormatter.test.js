@@ -1,5 +1,6 @@
+import moment from 'moment';
 import formateDate from '../../lib/dateFormatter';
-const moment = require('moment');
+
 moment.locale('de');
 
 test('Should correctly formate input date and return it as a String. ', () => {

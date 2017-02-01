@@ -6,8 +6,7 @@ module.exports = {
     "node": true,
     "jest": true
   },
-  "extends": "eslint-config-airbnb",
-  "extends": "eslint:recommended",
+  "extends": ["eslint-config-airbnb", "eslint:recommended"],
   "parserOptions": {
     "sourceType": "module",
   },

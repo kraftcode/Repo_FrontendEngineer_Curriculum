@@ -1,4 +1,5 @@
-const moment = require('moment');
+import moment from 'moment';
+
 moment.locale('de');
 
 export default function formateDate(date) {
@@ -7,6 +8,6 @@ export default function formateDate(date) {
 
   // leaving only first two letters of full Day:
   let abbrDay = justFullDay.substring(0, justFullDay.length - (justFullDay.length-2));
-  
+
   return abbrDay.concat('. ' + withoutDay);
 }

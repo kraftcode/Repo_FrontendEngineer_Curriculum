@@ -9,22 +9,24 @@ This project requires NodeJS and the Node Package Manager to work.
 Open the command line interface (CLI) in the root of the project and enter:
 * npm install
 
-
 **Command line scripts:**
 * npm run lint  //executes ES6 javascript linting for the project
 * npm run autofixlint  //executes linting and automatically fixed lint errors
-* npm run test  //executes the unit tests using jets
-* npm run e2etest  //executes the end-to-end tests using nightwatch
+* npm run test:unit  //executes the unit tests using jets
+* npm run test:e2e  //executes the end-to-end tests using nightwatch (requires the application to be running - see npm start below)
+* npm run test  //executes both unit and then e2e tests sequentially
 * npm run build  //builds the project with webpack (env set to production)
+
+**Running the app**
 * npm start  //runs the application on http://localhost:8080/ using webpack-dev-server and a nodemon executing Hot Module Replacement on the running server
 
 
-##1 Environment Setup
+##Third party software used
 
 **1.1 Module Bundler**
 * Webpack@2
 
-The project uses Webpack 2 moduel bundler in combination with NPM to configure
+The project uses Webpack 2 module bundler in combination with NPM to configure
 and bundle the project and manage its dependencies. This allows the application
 to be housed in a generated index.html file and able to consume ES6 standards.
 
