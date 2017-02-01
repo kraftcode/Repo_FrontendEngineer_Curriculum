@@ -14,7 +14,7 @@
   },
   "pre-commit": [
     "lint",
-    "test"
+    "test:unit"
   ],
   "keywords": [],
   "author": "",
@@ -45,6 +45,7 @@
   "dependencies": {
     "clean-webpack-plugin": "^0.1.15",
     "git-validate": "^2.2.2",
+    "localforage": "^1.4.3",
     "moment": "^2.17.1",
     "webpack": "^2.2.0"
   },
