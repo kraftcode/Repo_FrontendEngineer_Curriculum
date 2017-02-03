@@ -1,17 +1,32 @@
 import formateDate from './lib/dateFormatter';
-import {asyncPersistAsJSON, asyncRetrieveAsJSON} from './resource_layer';
+import Storage from './resourceLayer';
 //import styles from './main.css'; //could be used to import local styles
 
+let store = new Storage();
+
 export default function () {
-  const element = document.createElement('h1');
-  var currentDate = new Date();
-  var formattedDate = formateDate(currentDate);
+  const myKeyString = 'oldDate';
+  const h1 = document.createElement('h1');
+  const h2 = document.createElement('h2');
+  const headers = {};
 
-  element.innerHTML = String(formattedDate);
+  h2.innerHTML = 'Nothing yet...';
+  store.asyncRetrieveAsJSON(myKeyString, function(value){
+    h2.innerHTML = 'OLD VALUE FROM STORAGE IS: ' + value;
+    //return value;
+  });
 
-  asyncPersistAsJSON('myDateString', formattedDate);
+  let currentDate = new Date();
+  let formattedDate = formateDate(currentDate);
 
-  console.log('RETRIEVED FROM STORAGE: ' + asyncRetrieveAsJSON('myDateString'));
+  h1.innerHTML = 'FRESHLY GENERATED VALUE IS: ' + formattedDate;
 
-  return element;
+  store.asyncPersistAsJSON(myKeyString, formattedDate, function(value){
+    return value;
+  });
+
+  headers.h1 = h1;
+  headers.h2 = h2;
+
+  return headers;
 }

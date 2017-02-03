@@ -5,5 +5,8 @@ import component from './component';
 var img = document.createElement('img');
 img.src = demoImage2;
 
-document.body.appendChild(component());
+let headers = component();
+
+document.body.appendChild(headers.h1);
+document.body.appendChild(headers.h2);
 document.body.appendChild(img);
