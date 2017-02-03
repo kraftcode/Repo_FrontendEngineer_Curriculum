@@ -1,30 +1,9 @@
-import localForage from 'localforage';
-import localForageMockDriver from '../../__mocks__/localForageMockDriver';
 import Storage from '../../resourceLayer';
-
-
-// localForage.defineDriver(localForageMockDriver)
-//   .then(() => {
-//     console.log('Driver defined');
-//     console.log(localForage);
-//
-//     localForage.setDriver('localForageDriverMock')
-//       .then(() => {
-//         console.log('in set Driver', localForage.driver());
-//       });
-//   })
-//   .catch(() => console.log('Driver rejected'));
 
 describe('localForage', () => {
   let testKey;
   let testJSObj;
   let subject;
-
-  // beforeAll(() => {
-  //   return localForage
-  //     .defineDriver(localForageMockDriver)
-  //     .then(() => (localForage.setDriver('localForageDriverMock')));
-  // });
 
   beforeEach(() => {
     testKey = 'persistKey';
@@ -32,7 +11,6 @@ describe('localForage', () => {
       testValue : 'Teststring value for asynchronous persistence with localforage API.',
       somenumber: 42,
     };
-
     subject = new Storage();
   });
 
