@@ -28,15 +28,16 @@ const common = merge([
     plugins: [
       new HtmlWebpackPlugin({
         title: 'Webpack demo',
+        template: './config/index.ejs',
       }),
     ],
   },
 ]);
 
-module.exports = function(env) {
+let config = function(env) {
   if (env === 'production') {
     //Placeholde. Could do stuff here exclusive to production mode
-    console.log('LOG: env param was: ' + env);
+
   }
 
   return merge([
@@ -44,12 +45,14 @@ module.exports = function(env) {
     {
       plugins: [
         new webpack.NamedModulesPlugin(),
+        new webpack.ProvidePlugin({ html: ['snabbdom-jsx', 'html'] }),
       ],
     },
     parts.clean(PATHS.build),
     parts.generateSourcemaps('eval-source-map'),
     parts.loadCSS(),
     parts.urlLoader(),
+    parts.loadJSXwithBabel(),
     parts.devServer({
       // Customize host/port here if needed
       host: process.env.HOST,
@@ -65,4 +68,8 @@ module.exports = function(env) {
     }),
     parts.minifyJavaScript({ useSourceMap: true }),
   ]);
-};
+}();
+
+// console.log(config.module.rules);
+
+module.exports = config;

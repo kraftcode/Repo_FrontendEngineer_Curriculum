@@ -124,3 +124,17 @@ exports.clean = function(path) {
     ],
   };
 };
+
+exports.loadJSXwithBabel = function() {
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.jsx?$/,
+          exclude: /(node_modules)/,
+          loader: 'babel-loader',
+        },
+      ],
+    },
+  };
+};

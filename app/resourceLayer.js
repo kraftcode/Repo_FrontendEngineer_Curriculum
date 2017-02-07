@@ -2,7 +2,7 @@ import localForage from 'localforage';
 
 class Storage {
 
-  constructor (storageService = localForage.createInstance()){
+  constructor (storageService = localForage.createInstance()){ //Default is localForage if no parameter is passed in
     this.storageService = storageService;
   }
 

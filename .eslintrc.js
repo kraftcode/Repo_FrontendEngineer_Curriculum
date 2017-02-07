@@ -4,7 +4,7 @@ module.exports = {
     "commonjs": true,
     "es6": true,
     "node": true,
-    "jest": true
+    "jest": true,
   },
   "extends": ["eslint-config-airbnb", "eslint:recommended"],
   "parserOptions": {
@@ -14,6 +14,12 @@ module.exports = {
     "comma-dangle": [
       "error",
       "always-multiline",
+    ],
+    "react/jsx-filename-extension": [
+      1, { "extensions": [".js", ".jsx"] }
+    ],
+    "react/react-in-jsx-scope": [
+      0
     ],
     "indent": [
       "error",
