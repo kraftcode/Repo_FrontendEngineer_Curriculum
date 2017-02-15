@@ -64,10 +64,12 @@ exports.loadCSS = function(paths) {
       rules: [
         {
           test: /\.css$/,
-          // Restrict extraction process to the given
-          // paths.
           include: paths,
-          use: ['style-loader', 'css-loader'],
+          use: [
+            'style-loader',
+            'css-loader',
+          ],
+
         },
       ],
     },
@@ -98,6 +100,12 @@ exports.urlLoader = function() {
   };
 };
 
+exports.generateSourcemaps = function(type) {
+  return {
+    devtool: type,
+  };
+};
+
 exports.minifyJavaScript = function({ useSourceMap }) {
   return {
     plugins: [
@@ -108,12 +116,6 @@ exports.minifyJavaScript = function({ useSourceMap }) {
         },
       }),
     ],
-  };
-};
-
-exports.generateSourcemaps = function(type) {
-  return {
-    devtool: type,
   };
 };
 
@@ -133,6 +135,9 @@ exports.loadJSXwithBabel = function() {
           test: /\.jsx?$/,
           exclude: /(node_modules)/,
           loader: 'babel-loader',
+          query: {
+            presets: ['es2015'],
+          },
         },
       ],
     },

@@ -1,13 +1,35 @@
 import moment from 'moment';
 
-moment.locale('de');
+class dateFormatter {
 
-export default function formateDate(date) {
-  let withoutDay = moment(date).format('LLL');
-  let justFullDay = moment(date).format('dddd');
+  constructor(localeString = 'de'){
+    moment.locale(localeString);
+  }
 
-  // leaving only first two letters of full Day:
-  let abbrDay = justFullDay.substring(0, justFullDay.length - (justFullDay.length-2));
+  formatDate(date){
+    return moment(date).format('D. MMMM YYYY');
+  }
 
-  return abbrDay.concat('. ' + withoutDay);
+  formatFlorianDate(date) {
+    let withoutDay = moment(date).format('LLL');
+    let justFullDay = moment(date).format('dddd');
+
+    // leaving only first two letters of full Day:
+    let abbrDay = justFullDay.substring(0, justFullDay.length - (justFullDay.length-2));
+
+    return abbrDay.concat('. ' + withoutDay);
+  }
+
+  formatTime(date) {
+    return moment(date).format('LT');
+  }
+
+  diffDurationInHours(startDate, endDate){
+    var duration = moment.duration(endDate.diff(startDate));
+    var hours = duration.asHours();
+    return hours;
+  }
+
 }
+
+export default dateFormatter;

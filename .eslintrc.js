@@ -11,9 +11,8 @@ module.exports = {
     "sourceType": "module",
   },
   "rules": {
-    "comma-dangle": [
-      "error",
-      "always-multiline",
+    "import/extensions": [
+      0
     ],
     "react/jsx-filename-extension": [
       1, { "extensions": [".js", ".jsx"] }
@@ -21,6 +20,7 @@ module.exports = {
     "react/react-in-jsx-scope": [
       0
     ],
+    "react/prop-types": [ 0 ],
     "indent": [
       "error",
       2,
@@ -28,10 +28,6 @@ module.exports = {
     "linebreak-style": [
       "error",
       "unix",
-    ],
-    "quotes": [
-      "error",
-      "single",
     ],
     "semi": [
       "error",

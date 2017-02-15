@@ -1,4 +1,4 @@
-import Storage from '../../resourceLayer';
+import Storage from '../../storage';
 
 describe('localForage', () => {
   let testKey;
@@ -19,22 +19,16 @@ describe('localForage', () => {
   });
 
 
-  it('Should permanently persist JS-Object to local storage as JSON. ', async () => {
-    let resultObj = {};
-    await subject.asyncPersistAsJSON(testKey, testJSObj, function(value){
-      resultObj = value;
-      return value;
+  it('Should permanently persist JS-Object to local storage as JSON. ', () => {
+    subject.asyncPersistAsJSON(testKey, testJSObj).then(function(resultObj){
+      expect(resultObj).toMatchObject(testJSObj);
     });
-
-    expect(resultObj).toMatchObject(testJSObj);
   });
 
   it('Should retrieve persisted JSON value and return it parsed into JS-Object. ', async () => {
-    let resultObj = {};
     await subject.asyncPersistAsJSON(testKey, testJSObj);
-    await subject.asyncRetrieveAsJSON(testKey, function(value){
-      resultObj = value;
+    await subject.asyncRetrieveAsJSON(testKey, function(resultObj){
+      expect(resultObj).toMatchObject(testJSObj);
     });
-    expect(resultObj).toMatchObject(testJSObj);
   });
 });

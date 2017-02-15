@@ -1,9 +1,7 @@
 import snabbdom from 'snabbdom';
 import './main.css';
-import demoImage2 from '../assets/images/demo2.jpg';
-import component from './component';
-
-let h = require('snabbdom/h').default;
+import Storage from './storage';
+import Store from './Store';
 
 const patch = snabbdom.init([
   require('snabbdom/modules/class').default,
@@ -12,27 +10,37 @@ const patch = snabbdom.init([
   require('snabbdom/modules/eventlisteners').default,
 ]);
 
-let oldNode = document.getElementById('app');
-let newNode = undefined;
-let headers = component(); //date strings
+const storage = new Storage();
+const persistStore = 'oldStoreEntryList';
 
-function updateView(oldNode) {
-  console.log('In updateView...' + headers.h2);
-  newNode = h('div', [
-    h('h1', {style: {color: 'blue'}}, headers.h1),
-    h('h2',
-      {
-        style: {
-          color: 'red',
-        },
-        props: {
-        },
-        on: { },
-      }, headers.h2),
-    h('img', {props: {src: demoImage2}}), // set tag properties with props: object
-  ]);
-  patch(oldNode, newNode);
-  oldNode = newNode;
-}
+let errorHandler = function (error){
+  console.log('Async error caught in index.js :' + error);
+};
 
-updateView(oldNode);
+let renderEntryList = function(store, vnode = document.getElementById('entry-list')){
+  store.setEndForEntry(second);
+  return patch(vnode, store.getRenderEntryList());
+};
+
+let storageJSONToState = function(jsonString) {
+  let temp = {};
+  temp = JSON.parse(jsonString);
+  let result = {};
+  for(let entry in temp){
+    let listEntry = JSON.parse(temp[entry]);
+    result[listEntry.startDate + listEntry.startTime] = listEntry;
+  }
+  let hourlyRate = result[Object.keys(result)[0]];
+  delete result[Object.keys(result)[0]];
+  return new Store(hourlyRate, result);
+};
+
+let store = new Store(12);
+let first = store.addNewEntry(new Date('2015-03-04 15:05:06'));
+let second = store.addNewEntry(new Date('2016-07-08 15:05:06'));
+store.setEndForEntry(first);
+
+storage.asyncRetrieveAsJSON(persistStore)
+.then(storageJSONToState)
+.then(renderEntryList)
+.catch(errorHandler);

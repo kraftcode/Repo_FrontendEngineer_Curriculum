@@ -1,3 +1,94 @@
-body {
-    background: cornsilk;
+@import '../node_modules/normalize.css/normalize.css';
+
+ul
+{
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+li
+{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #808080;
+}
+
+li:first-child{
+  border-top: 1px solid #808080;
+}
+
+hr
+{
+  color: #808080;
+}
+
+
+/* BLOCK COMPONENTS */
+.entry
+{
+
+}
+
+.entry--done
+{
+
+}
+
+.entry--active
+{
+  background: #E0FFFF;
+}
+
+/* Entry sub-components */
+.entry__top
+{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.entry__bottom
+{
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Text items */
+.entry__startDay
+{
+  color: #808080;
+  font-size: 25px;
+  padding-right: 30px;
+}
+
+.entry__startDate
+{
+  color: black;
+  font-size: 25px;
+}
+
+.entry__earnings
+{
+  margin-left: auto;
+  color: #228B22;
+  font-size: 20px;
+}
+
+.entry__startTime
+{
+  color: blue;
+  font-size: 17px;
+  padding-right: 30px;
+}
+
+.entry__endTime
+{
+  color: red;
+  font-size: 17px;
+}
+
+.entry__duration
+{
+  margin-left: auto;
+  color: blue;
+  font-size: 17px;
 }

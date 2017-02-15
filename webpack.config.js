@@ -46,12 +46,16 @@ let config = function(env) {
       plugins: [
         new webpack.NamedModulesPlugin(),
         new webpack.ProvidePlugin({ html: ['snabbdom-jsx', 'html'] }),
+        new webpack.LoaderOptionsPlugin({
+          debug: true,
+        }),
       ],
     },
     parts.clean(PATHS.build),
-    parts.generateSourcemaps('eval-source-map'),
-    parts.loadCSS(),
-    parts.urlLoader(),
+    parts.loadCSS(PATHS.app),
+    parts.urlLoader({
+      paths: PATHS,
+    }),
     parts.loadJSXwithBabel(),
     parts.devServer({
       // Customize host/port here if needed
@@ -67,6 +71,7 @@ let config = function(env) {
       },
     }),
     parts.minifyJavaScript({ useSourceMap: true }),
+    parts.generateSourcemaps('source-map'),
   ]);
 }();
 
