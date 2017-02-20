@@ -1,4 +1,4 @@
-@import '../node_modules/normalize.css/normalize.css';
+/*@import '../node_modules/normalize.css/normalize.css';*/
 
 ul
 {
@@ -91,4 +91,33 @@ hr
   margin-left: auto;
   color: blue;
   font-size: 17px;
+}
+
+.button
+{
+
+}
+
+.button__red__inactive
+{
+  background: red;
+  color: white;
+  padding: 15px 45px;
+  font-size: 30px;
+  border-radius: 8px;
+  border: none;
+  margin: 2px;
+  color: white;
+}
+
+.button__blue__inactive
+{
+  background: blue;
+  color: white;
+  padding: 15px 45px;
+  font-size: 30px;
+  border-radius: 8px;
+  border: none;
+  margin: 2px;
+  color: white;
 }

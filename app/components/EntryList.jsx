@@ -1,7 +1,10 @@
-const EntryList = (props) => (
+import Entry from './Entry.jsx';
+
+const EntryList = (currentList) => (
   <ul>
-    {props.list.map(function(listValue){
-      return <li>{listValue}</li>;
+    {currentList.currentList.map(function(element){
+      console.log(element);
+      return <li> <Entry props={element} /> </li>;
     })}
   </ul>
 );

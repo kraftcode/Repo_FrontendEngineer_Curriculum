@@ -1,15 +1,19 @@
+import { action } from 'mobx';
 import moment from 'moment';
 import accounting from 'accounting';
 import DateFormatter from './lib/dateFormatter';
-import Entry from './components/Entry.jsx';
-import EntryList from './components/EntryList.jsx';
 
 class Store {
 
-  constructor(_hourlyRate, entryList = {}){
+  constructor(_hourlyRate, entryList = []){
     this.hourlyRate = _hourlyRate;
     this.currentList = entryList;
     this.dateFormatter = new DateFormatter();
+    this.addNewEntry = action(this.addNewEntry);
+  }
+
+  getCurrentList(){
+    return this.currentList;
   }
 
   addNewEntry(date = new Date()){
@@ -19,32 +23,36 @@ class Store {
       startDay : moment(date).format('dd.'),
       startDate : this.dateFormatter.formatDate(_standardStartDate),
       startTime : this.dateFormatter.formatTime(_standardStartDate),
+      endDate : '',
+      endTime : '',
+      duration : '',
+      earnings : ''
     };
-    let id = entry.startDate + entry.startTime;
-    if(this.currentList[id]){
-      console.error('Store.js addNewEntry(): entryID already exists! ');
-    }else {
-      this.currentList[id] = entry;
-      return id;
-    }
+    let id = this.currentList.push(entry) - 1;
+    this.currentList[id].id = id;
+    return id;
   }
 
   setEndForEntry(entryID, date = new Date()){
     if(this.currentList[entryID]){
-      let entry = this.currentList[entryID];
       let standardEndDate = moment(date);
-      entry.endDate = this.dateFormatter.formatDate(standardEndDate);
-      entry.endTime = this.dateFormatter.formatTime(standardEndDate);
-      entry.duration = this.dateFormatter.diffDurationInHours(entry.standardStartDate, standardEndDate);
-      entry.earnings = accounting.formatMoney((this.hourlyRate * entry.duration), '€', 2, '.', ',');
+      this.currentList[entryID].endDate = this.dateFormatter.formatDate(standardEndDate);
+      this.currentList[entryID].endTime = this.dateFormatter.formatTime(standardEndDate);
+      this.currentList[entryID].duration = Math.round(this.dateFormatter.diffDurationInHours(this.currentList[entryID].standardStartDate, standardEndDate));
+      this.currentList[entryID].earnings = accounting.formatMoney((this.hourlyRate * this.currentList[entryID].duration), '€', 2, '.', ',');
     } else {
       console.error('Store.js setEndForEntry(): entryID does not exist! ');
       return null;
     }
   }
 
-  removeEntry(entryID){
-    delete this.currentList[entryID];
+  removeEntry(index){
+    if(this.currentList[index]){
+      return this.currentList.splice(index, 1);
+    } else {
+      console.error('ERROR Store.js: Attempted to delete from invalid index!');
+      return null;
+    }
   }
 
   getStateJSONForStorage(){
@@ -63,18 +71,6 @@ class Store {
     return JSON.stringify(entryStrings);
   }
 
-  getRenderEntryList(){
-    let entries = [];
-    for(var entry in this.currentList){
-      let props = this.currentList[entry];
-      if(props.endDate){
-        entries.push(<Entry className={props.startDayClass} startDay={props.startDay} startDate={props.startDate} earnings={props.earnings} startTime={props.startTime} endTime={props.endTime} duration={props.duration} />);
-      }else{
-        entries.push(<Entry className={props.startDayClass} startDay={props.startDay} startDate={props.startDate} earnings={''} startTime={props.startTime} endTime={''} duration={''} />);
-      }
-    }
-    return <EntryList list={entries} />;
-  }
 }
 
 export default Store;

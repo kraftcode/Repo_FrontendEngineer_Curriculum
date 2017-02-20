@@ -52,7 +52,7 @@ let config = function(env) {
       ],
     },
     parts.clean(PATHS.build),
-    parts.loadCSS(PATHS.app),
+    parts.loadCSS(),
     parts.urlLoader({
       paths: PATHS,
     }),

@@ -44,7 +44,6 @@
     "localStorage": "^1.0.3",
     "nightwatch": "^0.9.12",
     "nodemon": "^1.11.0",
-    "normalize.css": "^5.0.0",
     "snabbdom-jsx": "^0.3.1",
     "snabbdom-to-html": "^3.0.1",
     "style-loader": "^0.13.1",
@@ -58,7 +57,10 @@
     "clean-webpack-plugin": "^0.1.15",
     "git-validate": "^2.2.2",
     "localforage": "^1.4.3",
+    "mobx": "^3.1.0",
     "moment": "^2.17.1",
+    "normalize-css": "^2.3.1",
+    "normalize.css": "^5.0.0",
     "snabbdom": "^0.6.3",
     "webpack": "^2.2.0"
   },
