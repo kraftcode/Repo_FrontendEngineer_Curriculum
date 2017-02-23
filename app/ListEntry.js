@@ -1,6 +1,6 @@
 import moment from 'moment';
 import accounting from 'accounting';
-import dateFormatter from './lib/dateFormatter';
+import dateFormatter from './lib/DateFormatter';
 
 class ListEntry {
   constructor(_myStore){

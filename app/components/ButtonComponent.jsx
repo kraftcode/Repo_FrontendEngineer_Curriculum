@@ -1,6 +1,6 @@
 const Button = (props) => {
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     if(props.button.disabled){
       props.addNewEntry();
     } else {
