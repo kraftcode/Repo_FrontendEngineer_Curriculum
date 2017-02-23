@@ -75,6 +75,4 @@ let config = function(env) {
   ]);
 }();
 
-// console.log(config.module.rules);
-
 module.exports = config;

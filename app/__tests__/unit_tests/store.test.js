@@ -1,50 +1,39 @@
-import fs from 'fs';
+import TestJSON from './TestPersistString.json';
 import Store from '../../Store';
 
-let subject;
-let first;
-let second;
-let hourlyTestRate = 42;
-let expectedJSON = `{\"0\":42,\"1\":\"{\\\"standardStartDate\\\":\\\"2015-03-04T14:05:06.000Z\\\",\\\"startDay\\\":\\\"Mi.\\\",\\\"startDate\\\":\\\"4. März 2015\\\",\\\"startTime\\\":\\\"15:05\\\",\\\"endDate\\\":\\\"\\\",\\\"endTime\\\":\\\"\\\",\\\"duration\\\":\\\"\\\",\\\"earnings\\\":\\\"\\\",\\\"id\\\":0}\",\"2\":\"{\\\"standardStartDate\\\":\\\"2016-07-08T13:05:06.000Z\\\",\\\"startDay\\\":\\\"Fr.\\\",\\\"startDate\\\":\\\"8. Juli 2016\\\",\\\"startTime\\\":\\\"15:05\\\",\\\"endDate\\\":\\\"\\\",\\\"endTime\\\":\\\"\\\",\\\"duration\\\":\\\"\\\",\\\"earnings\\\":\\\"\\\",\\\"id\\\":1}\"}`;
+describe('Store function tests. ', () => {
+  let subject;
+  let first;
+  let second;
+  let hourlyTestRate = 42;
 
-beforeEach( () => {
-  subject = new Store(hourlyTestRate);
-  first = subject.addNewEntry(new Date('2015-03-04 15:05:06'));
-  second = subject.addNewEntry(new Date('2016-07-08 15:05:06'));
-});
-
-test('Should add entries with specified start time and leave end time undefined.', () => {
-  expect(subject.hourlyRate).toBe(hourlyTestRate);
-  expect(subject.currentList[first].startTime).toBe('15:05');
-  expect(subject.currentList[first].endTime).toBe('');
-});
-
-test('Should set correct end time for specified events and calculate earnings.', ()=> {
-  subject.setEndForEntry(second, new Date('2016-09-09 15:05:06'));
-  expect(subject.currentList[second].endTime).toBe('15:05');
-  expect(subject.currentList[second].earnings).toBe('€63.504,00');
-  expect(subject.currentList[first].endTime).toBe('');
-});
-
-test('Should remove the entry via its ID from the event list.', () => {
-  subject.removeEntry(second);
-  expect(subject.currentList[second]).toBe(undefined);
-});
-
-test('Should correctly return application state as JSON string.', () => {
-  let JSONTestString = 'empty';
-  fs.readFile('./TestPersistString', function(err, result){
-    if(err){
-      throw err;
-    }
-    JSONTestString = JSON.parse(result);
+  beforeEach( () => {
+    subject = new Store(hourlyTestRate);
+    first = subject.addNewEntry(new Date('2015-03-04 15:05:06'));
+    second = subject.addNewEntry(new Date('2016-07-08 15:05:06'));
   });
-  console.log('JSON: ');
-  console.log(JSONTestString);
-  let resultJSON = subject.getStateJSONForStorage();
-  expect(resultJSON).toBe(expectedJSON);
-});
 
-test('Should return app state as correctly formatted renderable UI components.', () => {
+  test('Should add entries with specified start time and leave end time undefined.', () => {
+    expect(subject.hourlyRate).toBe(hourlyTestRate);
+    expect(subject.currentList[first].startTime).toBe('15:05');
+    expect(subject.currentList[first].endTime).toBe('');
+  });
 
+  test('Should set correct end time for specified event and calculate its earnings.', ()=> {
+    subject.setEndForEntry(second, new Date('2016-09-09 15:05:06'));
+    expect(subject.currentList[second].endTime).toBe('15:05');
+    expect(subject.currentList[second].earnings).toBe('€63.504,00');
+    expect(subject.currentList[first].endTime).toBe('');
+  });
+
+  test('Should remove entry with specified ID from the event list.', () => {
+    subject.removeEntry(second);
+    expect(subject.currentList[second]).toBe(undefined);
+  });
+
+  test('Should return current application state as JSON string for storage.', () => {
+    let expectedJSON = TestJSON;
+    let jsonFromStore = subject.getStateJSONForStorage();
+    expect(jsonFromStore).toBe(expectedJSON);
+  });
 });

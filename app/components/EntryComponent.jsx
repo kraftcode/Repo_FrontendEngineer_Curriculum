@@ -1,4 +1,4 @@
-const Entry = (element) => (
+const EntryComponent = (element) => (
   <div className="entry">
     <div className="entry__top">
       <div className="entry__startDay">{element.props.startDay}</div>
@@ -13,4 +13,4 @@ const Entry = (element) => (
   </div>
 );
 
-export default Entry;
+export default EntryComponent;

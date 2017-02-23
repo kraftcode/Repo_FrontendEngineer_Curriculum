@@ -19,14 +19,13 @@ module.exports = {
   'step one' : function (browser) {
     browser
       .url('http://localhost:8080/')
-      .assert.title('Webpack demo');
+      .expect.element('button').to.be.present;
+    browser.end();
   },
 
-  'step two' : function (browser) {
-    browser
-    .waitForElementVisible('body', 1000)
-    .waitForElementVisible('h1', 1000) //tests if is visible before second arg
-    .expect.element('h1').to.be.present; //tests presence (redundant)
-    browser.end(); // must call end() to properly close testing!
-  },
+  // 'step two' : function (browser) {
+  //   browser
+  //   .assert.containsText('Clock In Now');
+  //   browser.end(); // must call end() to properly close testing!
+  // },
 };

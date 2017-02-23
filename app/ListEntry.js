@@ -22,7 +22,7 @@ class ListEntry {
     this.standardEndDate = moment(date);
     this.endDate = this.dateFormatter.formatDate(this.standardEndDate);
     this.endTime = this.dateFormatter.formatTime(this.standardEndDate);
-    this.duration = this.dateFormatter.diffDurationInHours(this.standardStartDate, this.standardEndDate);
+    this.duration = this.dateFormatter.diffDuration(this.standardStartDate, this.standardEndDate);
     this.earnings = accounting.formatMoney((this.hourlyRate * this.duration), '€', 2, '.', ',');
   }
 

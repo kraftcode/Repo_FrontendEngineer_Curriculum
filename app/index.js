@@ -1,12 +1,11 @@
 import { useStrict, autorun } from 'mobx';
 import snabbdom from 'snabbdom';
 import './main.css';
-import Storage from './storage';
+import Storage from './Storage';
 import Store from './Store';
-import EntryList from './components/EntryList.jsx';
-import Button from './components/Button.jsx';
+import AppComponent from './components/AppComponent.jsx';
 
-useStrict(true); //mobx
+useStrict(true); //mobx - will not allow mutating the state outside of Actions
 
 const patch = snabbdom.init([
   require('snabbdom/modules/class').default,
@@ -15,22 +14,23 @@ const patch = snabbdom.init([
   require('snabbdom/modules/eventlisteners').default,
 ]);
 
+const persistKey = 'TodoListAppPersistKey';
 const storage = new Storage();
-const persistKey = 'oldStoreEntryList';
+const store = new Store(12);
+let tree = document.getElementById('app');
 
-let errorHandler = function (error){
-  console.log('Async error caught in index.js :' + error);
-};
+store.addNewEntry(new Date('2015-03-04 15:05:06'));
+store.setEndForEntry(store.currentIndex);
 
-let renderEntryList = function(store, vnode = document.getElementById('entry-list')){
-  let entryList = <EntryList currentList={store.getCurrentList()} />;
+const render = function(tree){
+  let currentApp = AppComponent(store);
   return patch(
-    vnode,
-    entryList
+    tree,
+    currentApp
   );
 };
 
-let storageJSONToState = function(jsonString) {
+const storageJSONToState = (jsonString) => {
   let temp = {};
   temp = JSON.parse(jsonString);
   let result = [];
@@ -43,25 +43,17 @@ let storageJSONToState = function(jsonString) {
   return new Store(hourlyRate, result);
 };
 
+autorun(()=>{
+  tree = render(tree);
+});
 
-let p = {};
-p.message = 'Moin!';
-p.className = 'button__red__inactive';
-let redButton = Button(p);
-let buttonNode = document.getElementById('button');
-buttonNode = patch(buttonNode, redButton);
-p.className = 'button__blue__inactive';
-let blueButon = Button(p);
-buttonNode = patch(buttonNode, blueButon);
+let promiseErrorHandler = function (error){
+  console.log('Async error caught in index.js :' + error);
+};
 
-let store = new Store(12);
-let first = store.addNewEntry(new Date('2015-03-04 15:05:06'));
-let second = store.addNewEntry(new Date('2016-07-08 15:05:06'));
-store.setEndForEntry(first);
+// storage.asyncPersistAsJSON(persistKey, store.getStateJSONForStorage());
 
-renderEntryList(store);
-
-// storage.asyncRetrieveAsJSON(persistKey)
-// .then(storageJSONToState)
-// .then(renderEntryList)
-// .catch(errorHandler);
+storage.asyncRetrieveAsJSON(persistKey)
+.then(storageJSONToState)
+.then(render)
+.catch(promiseErrorHandler);
