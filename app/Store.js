@@ -2,6 +2,7 @@ import { useStrict, observable, action } from 'mobx';
 import moment from 'moment';
 import accounting from 'accounting';
 import DateFormatter from './lib/DateFormatter';
+import SecondsTimer from './lib/SecondsTimer';
 
 useStrict(true); //mobx - will not allow mutating the state outside of Actions
 
@@ -10,7 +11,9 @@ class Store {
   constructor(_hourlyRate, EntryListComponent = []){
     this.hourlyRate = _hourlyRate;
     this.currentList = observable(EntryListComponent);
+    this.timer = new SecondsTimer(this);
     this.dateFormatter = new DateFormatter();
+    this.updateTimeOnCurrentEntry = action(this.updateTimeOnCurrentEntry);
     this.addNewEntry = action(this.addNewEntry);
     this.setEndForEntry = action(this.setEndForEntry);
     this.removeEntry = action(this.removeEntry);
@@ -27,22 +30,27 @@ class Store {
     return this.currentList;
   }
 
+  updateTimeOnCurrentEntry(time){
+    this.currentList[this.currentIndex].duration = time;
+  }
+
   addNewEntry(date = new Date()){
     let _standardStartDate = date;
-    let entry = {
+    let entry = observable({
       standardStartDate : _standardStartDate,
       startDay : moment(date).format('dd.'),
       startDate : this.dateFormatter.formatDate(_standardStartDate),
       startTime : this.dateFormatter.formatTime(_standardStartDate),
       endDate : '',
       endTime : '',
-      duration : '',
+      duration : 0,
       earnings : ''
-    };
+    });
     this.currentIndex++;
     this.setButtonActive();
     let id = this.currentList.push(entry) - 1;
     this.currentList[id].id = id;
+    this.timer.startTimer(entry);
     return id;
   }
 
@@ -54,6 +62,7 @@ class Store {
       this.currentList[entryID].duration = this.dateFormatter.diffDuration(this.currentList[entryID].standardStartDate, standardEndDate);
       this.currentList[entryID].hoursWorked = this.dateFormatter.diffDurationInHours(this.currentList[entryID].standardStartDate, standardEndDate);
       this.currentList[entryID].earnings = accounting.formatMoney((this.hourlyRate * this.currentList[entryID].hoursWorked), '€', 2, '.', ',');
+      this.timer.endTimer();
       this.setButtonInactive();
     } else {
       console.error('Store.js setEndForEntry(): entryID does not exist! ');

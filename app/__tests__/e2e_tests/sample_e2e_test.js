@@ -25,7 +25,9 @@ module.exports = {
 
   // 'step two' : function (browser) {
   //   browser
-  //   .assert.containsText('Clock In Now');
+  //   .waitForElementPresent('body', 1000);
+  //   browser
+  //   .expect.element('button').to.have.css('button__blue__inactive');
   //   browser.end(); // must call end() to properly close testing!
-  // },
+  // }
 };

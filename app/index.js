@@ -48,7 +48,7 @@ autorun(()=>{
 });
 
 let promiseErrorHandler = function (error){
-  console.log('Async error caught in index.js :' + error);
+  console.log('Async storage error caught in index.js :' + error);
 };
 
 // storage.asyncPersistAsJSON(persistKey, store.getStateJSONForStorage());
