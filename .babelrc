@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    [
+      "transform-react-jsx", {
+        "pragma": "html"
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ],
+      "presets": ["stage-3"]
+    },
+  }
+}
