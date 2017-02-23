@@ -3,6 +3,8 @@
 This repo implements the exercises outlined in the  Frontend Engineer Curriculum course on Github by luhmann.
 This project requires NodeJS and the Node Package Manager to work.
 
+Travis link: https://travis-ci.org/kraftcode/Repo_FrontendEngineer_Curriculum/
+
 ##Getting up and running
 
 **Setting up the environment**
