@@ -1,8 +1,7 @@
 language: node_js
 
 before_install:
-- export TZ=Australia/Canberra
-- date
+- export TZ=Europe/Amsterdam
 
 install:
 - npm install
