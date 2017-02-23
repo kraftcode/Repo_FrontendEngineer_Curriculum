@@ -1,5 +1,9 @@
 language: node_js
 
+before_install:
+- export TZ=Australia/Canberra
+- date
+
 install:
 - npm install
 
