@@ -12,7 +12,6 @@ class SecondsTimer {
   }
 
   endTimer(){
-    console.log(this.timer);
     clearInterval(this.timer);
   }
 

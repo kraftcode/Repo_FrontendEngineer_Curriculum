@@ -35,7 +35,7 @@ class Store {
   }
 
   addNewEntry(date = new Date()){
-    let _standardStartDate = date;
+    let _standardStartDate = moment(date);
     let entry = observable({
       standardStartDate : _standardStartDate,
       startDay : moment(date).format('dd.'),
@@ -44,13 +44,13 @@ class Store {
       endDate : '',
       endTime : '',
       duration : 0,
-      earnings : ''
+      earnings : '€0,00'
     });
+    this.timer.startTimer();
     this.currentIndex++;
     this.setButtonActive();
     let id = this.currentList.push(entry) - 1;
     this.currentList[id].id = id;
-    this.timer.startTimer(entry);
     return id;
   }
 

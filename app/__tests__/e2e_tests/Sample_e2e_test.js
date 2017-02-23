@@ -20,14 +20,28 @@ module.exports = {
     browser
       .url('http://localhost:8080/')
       .expect.element('button').to.be.present;
+
+    browser
+      .expect.element('ul').to.be.present;
+
+    browser
+      .expect.element('li').to.be.present;
     browser.end();
   },
 
-  // 'step two' : function (browser) {
-  //   browser
-  //   .waitForElementPresent('body', 1000);
-  //   browser
-  //   .expect.element('button').to.have.css('button__blue__inactive');
-  //   browser.end(); // must call end() to properly close testing!
-  // }
+  'step two' : function (browser) {
+    browser
+    .url('http://localhost:8080/')
+    .waitForElementPresent('button', 1000);
+    browser
+    .expect.element('button').text.to.equal('Clock In Now');
+
+    browser
+    .click('button');
+
+    browser
+    .expect.element('button').text.to.equal('Clock Out Now');
+
+    browser.end(); // must call end() to properly close testing!
+  }
 };

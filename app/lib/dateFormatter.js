@@ -30,12 +30,10 @@ class DateFormatter {
     if(duration._data.days > 0){
       result += duration._data.days + ':';
     }
-    if(duration._data.hours > 0){
-      if(duration._data.hours < 10){
-        result += '0';
-      }
-      result += duration._data.hours + ':';
+    if(duration._data.hours < 10){
+      result += '0';
     }
+    result += duration._data.hours + ':';
     if(duration._data.minutes < 10){
       result += '0';
     }
