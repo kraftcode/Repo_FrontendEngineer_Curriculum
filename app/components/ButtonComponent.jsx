@@ -1,15 +1,19 @@
-const Button = (props) => {
-
-  const handleClick = () => {
-    if(props.button.disabled){
-      props.addNewEntry();
+const Button = ({ active = false, activeClickHandler, inactiveClickHandler }) => {
+  const clickHandler = (event) => {
+    if (active) {
+      inactiveClickHandler();
     } else {
-      props.setEndForEntry();
+      activeClickHandler();
     }
   };
 
   return (
-    <button className={props.button.className} on-click={handleClick}>{props.button.text}</button>
+    <button
+      className={(active) ? 'button__red__active' : 'button__blue__inactive'}
+      on-click={clickHandler}
+    >
+      {(active) ? 'Clock Out Now' : 'Clock In Now'}
+    </button>
   );
 };
 

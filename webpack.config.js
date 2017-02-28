@@ -41,6 +41,7 @@ const common = merge([
       emitWarning: true,
     },
   }),
+  parts.generateSourcemaps('source-map'),
 ]);
 
 const development = merge([
@@ -62,7 +63,7 @@ const production = merge([
   parts.minifyJavaScript({
     useSourceMap: true
   }),
-  parts.generateSourcemaps('source-map'),
+
 ]);
 
 
