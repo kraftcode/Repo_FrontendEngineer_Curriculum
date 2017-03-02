@@ -24,7 +24,7 @@ const common = merge([
         template: './config/index.ejs',
       }),
       new webpack.ProvidePlugin({
-        html: ['snabbdom-jsx', 'html']
+        html: ['snabbdom-jsx', 'html'] // import { html } from 'snabbdom-jsx/html'
       }),
     ],
   },

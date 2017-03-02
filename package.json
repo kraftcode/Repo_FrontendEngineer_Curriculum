@@ -8,7 +8,7 @@
     "autofixlint": "eslint . --fix",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "build": "webpack --env production",
-    "postinstall": "webdriver-manager update",
+    "postinstall": "webdriver-manager update --proxy http://proxy.inf.epost-dev.de:8080",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "NODE_ENV=test jest",
     "test:e2e": "nightwatch --verbose"
