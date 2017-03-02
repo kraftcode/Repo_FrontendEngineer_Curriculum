@@ -1,14 +1,17 @@
-import EntryListComponent from './EntryListComponent.jsx';
-import Button from './ButtonComponent.jsx';
+import React from "react";
+import Devtools from "mobx-react-devtools";
+import { observer } from "mobx-react";
+import EntryListComponent from "./EntryListComponent.jsx";
+import Button from "./ButtonComponent.jsx";
 
-const AppComponent = (props) => {
-
+const AppComponent = observer(props => {
   const renderComponent = () => {
     if (props.store.isLoading) {
-      return <div>Lade</div>;
+      return <div>Lade...</div>;
     } else {
       return (
         <div>
+          <Devtools />
           <div>
             <Button
               active={props.store.active}
@@ -25,6 +28,6 @@ const AppComponent = (props) => {
   };
 
   return renderComponent();
-};
+});
 
 export default AppComponent;

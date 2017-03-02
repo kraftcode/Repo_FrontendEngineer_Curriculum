@@ -1,8 +1,10 @@
-import EntryComponent from './EntryComponent.jsx';
+import React from "react";
+import { observer } from "mobx-react";
+import EntryComponent from "./EntryComponent.jsx";
 
-const EntryListComponent = (props) => (
+const EntryListComponent = observer(props => (
   <ul>
-    {props.list.map(function(element){
+    {props.list.map(function(element) {
       return (
         <li>
           <EntryComponent
@@ -15,6 +17,6 @@ const EntryListComponent = (props) => (
       );
     })}
   </ul>
-);
+));
 
 export default EntryListComponent;
