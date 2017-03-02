@@ -11,13 +11,6 @@ const PATHS = {
 
 const common = merge([
   {
-    // Entry accepts a path or an object of entries.
-    // We'll be using the latter form given it's
-    // convenient with more complex configurations.
-    //
-    // Entries have to resolve to files! It relies on Node.js
-    // convention by default so if a directory contains *index.js*,
-    // it will resolve to that.
     entry: {
       app: PATHS.app,
     },
@@ -30,49 +23,54 @@ const common = merge([
         title: 'Webpack demo',
         template: './config/index.ejs',
       }),
+      new webpack.ProvidePlugin({
+        html: ['snabbdom-jsx', 'html'] // import { html } from 'snabbdom-jsx/html'
+      }),
     ],
   },
+  parts.loadCSS(),
+  parts.loadJSXwithBabel(),
+  parts.urlLoader({
+    paths: PATHS,
+  }),
+  parts.lintJavaScript({
+    paths: PATHS.app,
+    options: {
+      // Emit warnings over errors to avoid crashing
+      // HMR on error.
+      emitWarning: true,
+    },
+  }),
+  parts.generateSourcemaps('source-map'),
 ]);
 
-let config = function(env) {
-  if (env === 'production') {
-    //Placeholde. Could do stuff here exclusive to production mode
+const development = merge([
+  {
+    plugins: [
+      new webpack.NamedModulesPlugin(),
+    ],
+  },
+  parts.devServer({
+    // Customize host/port here if needed
+    host: process.env.HOST,
+    port: process.env.PORT,
+  }),
+]);
 
+const production = merge([
+  {},
+  parts.clean(PATHS.build),
+  parts.minifyJavaScript({
+    useSourceMap: true
+  }),
+
+]);
+
+
+module.exports = function (env) {
+  if (env === 'production') {
+    return merge(common, production);
   }
 
-  return merge([
-    common,
-    {
-      plugins: [
-        new webpack.NamedModulesPlugin(),
-        new webpack.ProvidePlugin({ html: ['snabbdom-jsx', 'html'] }),
-        new webpack.LoaderOptionsPlugin({
-          debug: true,
-        }),
-      ],
-    },
-    parts.clean(PATHS.build),
-    parts.loadCSS(),
-    parts.urlLoader({
-      paths: PATHS,
-    }),
-    parts.loadJSXwithBabel(),
-    parts.devServer({
-      // Customize host/port here if needed
-      host: process.env.HOST,
-      port: process.env.PORT,
-    }),
-    parts.lintJavaScript({
-      paths: PATHS.app,
-      options: {
-        // Emit warnings over errors to avoid crashing
-        // HMR on error.
-        emitWarning: true,
-      },
-    }),
-    parts.minifyJavaScript({ useSourceMap: true }),
-    parts.generateSourcemaps('source-map'),
-  ]);
-}();
-
-module.exports = config;
+  return merge(common, development);
+};

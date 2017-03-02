@@ -1,11 +1,15 @@
 import { useStrict, autorun } from 'mobx';
 import snabbdom from 'snabbdom';
 import './main.css';
+import { STORAGE_KEY, HOURLY_RATE } from './lib/Constants';
 import Storage from './Storage';
 import Store from './Store';
 import AppComponent from './components/AppComponent.jsx';
 
+// ==== SETUP
 useStrict(true); //mobx - will not allow mutating the state outside of Actions
+
+let store;
 
 const patch = snabbdom.init([
   require('snabbdom/modules/class').default,
@@ -14,46 +18,43 @@ const patch = snabbdom.init([
   require('snabbdom/modules/eventlisteners').default,
 ]);
 
-const persistKey = 'TodoListAppPersistKey';
-const storage = new Storage();
-const store = new Store(12);
-let tree = document.getElementById('app');
-
-store.addNewEntry(new Date('2015-03-04 15:05:06'));
-store.setEndForEntry(store.currentIndex);
-
-const render = function(tree){
-  let currentApp = AppComponent(store);
+const render = function (tree, store) {
+  let currentApp = <AppComponent store={store} />;
   return patch(
     tree,
     currentApp
   );
 };
 
-const storageJSONToState = (jsonString) => {
-  let temp = {};
-  temp = JSON.parse(jsonString);
-  let result = [];
-  for(let entry in temp){
-    let listEntry = JSON.parse(temp[entry]);
-    result.push(listEntry);
-  }
-  let hourlyRate = temp[0];
-  result.shift();
-  return new Store(hourlyRate, result);
-};
 
-autorun(()=>{
-  tree = render(tree);
-});
-
-let promiseErrorHandler = function (error){
+let promiseErrorHandler = function (error) {
   console.log('Async storage error caught in index.js :' + error);
 };
 
-// storage.asyncPersistAsJSON(persistKey, store.getStateJSONForStorage());
+// ===== Execute
 
-storage.asyncRetrieveAsJSON(persistKey)
-.then(storageJSONToState)
-.then(render)
-.catch(promiseErrorHandler);
+const storage = new Storage();
+store = new Store(storage, HOURLY_RATE);
+
+let tree = document.getElementById('app');
+
+autorun(() => {
+  tree = render(tree, store);
+});
+
+const storageJSONToState = (jsonString) => {
+  let hydratedState = JSON.parse(jsonString);
+
+  if (hydratedState) {
+    store.setListFromStorage(hydratedState);
+  }
+
+  store.setLoading(false);
+};
+
+storage
+  .asyncRetrieveAsJSON(STORAGE_KEY)
+  .then(storageJSONToState)
+  .catch(promiseErrorHandler);
+
+

@@ -1,29 +1,35 @@
-import { useStrict, observable, action } from 'mobx';
-import moment from 'moment';
-import accounting from 'accounting';
-import DateFormatter from './lib/DateFormatter';
-import SecondsTimer from './lib/SecondsTimer';
-
-useStrict(true); //mobx - will not allow mutating the state outside of Actions
+import { observable, action, reaction, extendObservable, computed } from 'mobx';
+import { STORAGE_KEY } from './lib/Constants';
+import EntryStore from './EntryStore';
 
 class Store {
 
-  constructor(_hourlyRate, EntryListComponent = []){
+  constructor(storage, _hourlyRate, EntryListComponent = []){
     this.hourlyRate = _hourlyRate;
     this.currentList = observable(EntryListComponent);
-    this.timer = new SecondsTimer(this);
-    this.dateFormatter = new DateFormatter();
-    this.updateTimeOnCurrentEntry = action(this.updateTimeOnCurrentEntry);
-    this.addNewEntry = action(this.addNewEntry);
-    this.setEndForEntry = action(this.setEndForEntry);
+    this.addNewEntry = action(this.addNewEntry).bind(this);
+    this.setEndForEntry = action(this.setEndForEntry).bind(this);
     this.removeEntry = action(this.removeEntry);
-    this.currentIndex = this.currentList.length - 1;
-    this.button = observable({});
-    if(this.currentList[this.currentIndex] && this.currentList[this.currentIndex].endTime){
-      this.setButtonInactive();
-    } else {
-      this.setButtonActive();
-    }
+    this.setLoading = action(this.setLoading);
+    this.setListFromStorage = action(this.setListFromStorage);
+    this.storage = storage;
+
+    this.active = null;
+
+    extendObservable(this, {
+      isLoading: true,
+      getStateJSONForStorage: computed(function() {
+        const result = this.currentList.map((item) => item.getStateJSONForStorage());
+        return JSON.stringify(result);
+      })
+    });
+
+    reaction(
+      () => this.getStateJSONForStorage,
+      (currentList) => {
+        this.storage.asyncPersistAsJSON(STORAGE_KEY, currentList);
+      }
+    );
   }
 
   getCurrentList(){
@@ -35,44 +41,23 @@ class Store {
   }
 
   addNewEntry(date = new Date()){
-    let _standardStartDate = moment(date);
-    let entry = observable({
-      standardStartDate : _standardStartDate,
-      startDay : moment(date).format('dd.'),
-      startDate : this.dateFormatter.formatDate(_standardStartDate),
-      startTime : this.dateFormatter.formatTime(_standardStartDate),
-      endDate : '',
-      endTime : '',
-      duration : 0,
-      earnings : '€0,00'
-    });
-    this.timer.startTimer();
-    this.currentIndex++;
-    this.setButtonActive();
-    let id = this.currentList.push(entry) - 1;
-    this.currentList[id].id = id;
-    return id;
+    let entry = new EntryStore(date, null, this.hourlyRate);
+    this.active = entry;
+    this.currentList.push(entry);
   }
 
   setEndForEntry(entryID = this.currentIndex, date = new Date()){
-    if(this.currentList[entryID]){
-      let standardEndDate = moment(date);
-      this.currentList[entryID].endDate = this.dateFormatter.formatDate(standardEndDate);
-      this.currentList[entryID].endTime = this.dateFormatter.formatTime(standardEndDate);
-      this.currentList[entryID].duration = this.dateFormatter.diffDuration(this.currentList[entryID].standardStartDate, standardEndDate);
-      this.currentList[entryID].hoursWorked = this.dateFormatter.diffDurationInHours(this.currentList[entryID].standardStartDate, standardEndDate);
-      this.currentList[entryID].earnings = accounting.formatMoney((this.hourlyRate * this.currentList[entryID].hoursWorked), '€', 2, '.', ',');
-      this.timer.endTimer();
-      this.setButtonInactive();
+    if(this.active){
+      this.active.endDate = date;
+      this.active = null;
     } else {
-      console.error('Store.js setEndForEntry(): entryID does not exist! ');
+      console.error('No timer is active');
       return null;
     }
   }
 
-  removeEntry(index){
+  removeEntry(index) {
     if(this.currentList[index]){
-      this.currentIndex--;
       return this.currentList.splice(index, 1);
     } else {
       console.error('ERROR Store.js: Attempted to delete from invalid index!');
@@ -80,34 +65,13 @@ class Store {
     }
   }
 
-  getStateJSONForStorage(){
-    let storageObj = {
-      hourlyRate : this.hourlyRate,
-      list: this.currentList,
-    };
-    let key = 0;
-    let entryStrings = {};
-    entryStrings[key]= storageObj.hourlyRate;
-    storageObj.list.map(function(element){
-      key++;
-      let stringEntry = JSON.stringify(element);
-      entryStrings[key] = stringEntry;
-    });
-    return JSON.stringify(entryStrings);
+  setListFromStorage(storageList) {
+    this.currentList.replace(storageList.map((item) => EntryStore.hydrate(item)));
   }
 
-  setButtonActive(){
-    this.button.disabled = false;
-    this.button.className = 'button__red__active';
-    this.button.text = 'Clock Out Now';
+  setLoading(isLoading) {
+    this.isLoading = isLoading;
   }
-
-  setButtonInactive(){
-    this.button.disabled = true;
-    this.button.className = 'button__blue__inactive';
-    this.button.text = 'Clock In Now';
-  }
-
 }
 
 export default Store;
