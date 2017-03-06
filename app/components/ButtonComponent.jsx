@@ -7,10 +7,8 @@ const Button = observer((
   const clickHandler = event => {
     if (active) {
       inactiveClickHandler();
-      console.log(active);
     } else {
       activeClickHandler();
-      console.log(active);
     }
   };
 

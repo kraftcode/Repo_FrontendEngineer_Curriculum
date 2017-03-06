@@ -26,7 +26,11 @@ class EntryStore {
   }
 
   static hydrate({ startDate, endDate, rate }) {
-    return new this(new Date(startDate), new Date(endDate), rate);
+    if (endDate) {
+      return new this(new Date(startDate), new Date(endDate), rate);
+    } else {
+      return new this(new Date(startDate), null, rate);
+    }
   }
 }
 
