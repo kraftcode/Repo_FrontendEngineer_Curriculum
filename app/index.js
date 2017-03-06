@@ -26,14 +26,12 @@ const storageJSONToState = jsonString => {
   store.setLoading(false);
 };
 
-window.store = store;
+window.store = store; //to make the store accessible from the console in browser for debugging
 // ===== Execute
 
 storage
   .asyncRetrieveAsJSON(STORAGE_KEY)
   .then(storageJSONToState)
   .catch(promiseErrorHandler);
-
-store.setLoading(false);
 
 ReactDOM.render(<AppComponent store={store} />, document.getElementById("app"));

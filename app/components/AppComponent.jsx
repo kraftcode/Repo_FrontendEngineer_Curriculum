@@ -20,7 +20,7 @@ const AppComponent = observer(props => {
             />
           </div>
           <div>
-            <EntryListComponent list={props.store.getCurrentList().reverse()} />
+            <EntryListComponent list={props.store.currentList.reverse()} />
           </div>
         </div>
       );

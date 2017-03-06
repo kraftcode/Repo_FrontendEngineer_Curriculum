@@ -1,6 +1,3 @@
-import localStorage from 'localStorage';
-import { html } from 'snabbdom-jsx';
-
+import localStorage from "localStorage";
 
 Object.assign(window, { localStorage });
-global.html = html;

@@ -36,25 +36,34 @@ class Store extends Component {
     return this.currentList;
   }
 
-  updateTimeOnCurrentEntry(time) {
-    this.currentList[this.currentIndex].duration = time;
+  setActive(isActive) {
+    this.isActive = isActive;
+  }
+
+  setListFromStorage(storageList) {
+    this.currentList.replace(storageList.map(item => EntryStore.hydrate(item)));
+  }
+
+  setLoading(isLoading) {
+    this.isLoading = isLoading;
+  }
+
+  setEndForEntry(activeEntry = this.active, date = new Date()) {
+    if (activeEntry) {
+      activeEntry.endDate = date;
+      activeEntry = null;
+      return this.currentList.length - 1;
+    } else {
+      console.error("No timer is active");
+      return null;
+    }
   }
 
   addNewEntry(date = new Date()) {
     let entry = new EntryStore(date, null, this.hourlyRate);
     this.active = entry;
-    console.log(this.active);
     this.currentList.push(entry);
-  }
-
-  setEndForEntry(entryID = this.currentIndex, date = new Date()) {
-    if (this.active) {
-      this.active.endDate = date;
-      this.active = null;
-    } else {
-      console.error("No timer is active");
-      return null;
-    }
+    return this.currentList.length - 1;
   }
 
   removeEntry(index) {
@@ -66,16 +75,8 @@ class Store extends Component {
     }
   }
 
-  setListFromStorage(storageList) {
-    this.currentList.replace(storageList.map(item => EntryStore.hydrate(item)));
-  }
-
-  setLoading(isLoading) {
-    this.isLoading = isLoading;
-  }
-
-  setActive(isActive) {
-    this.isActive = isActive;
+  updateTimeOnCurrentEntry(index, time) {
+    this.currentList[index].duration = time;
   }
 }
 
