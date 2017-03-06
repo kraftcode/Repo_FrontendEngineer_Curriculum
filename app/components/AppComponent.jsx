@@ -1,5 +1,4 @@
 import React from "react";
-import Devtools from "mobx-react-devtools";
 import { observer } from "mobx-react";
 import EntryListComponent from "./EntryListComponent.jsx";
 import Button from "./ButtonComponent.jsx";
@@ -11,7 +10,6 @@ const AppComponent = observer(props => {
     } else {
       return (
         <div>
-          <Devtools />
           <div>
             <Button
               active={props.store.active}
@@ -20,7 +18,7 @@ const AppComponent = observer(props => {
             />
           </div>
           <div>
-            <EntryListComponent list={props.store.currentList.reverse()} />
+            <EntryListComponent list={props.store.getCurrentList().reverse()} />
           </div>
         </div>
       );

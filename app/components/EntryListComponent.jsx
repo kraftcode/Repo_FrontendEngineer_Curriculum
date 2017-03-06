@@ -6,7 +6,7 @@ const EntryListComponent = observer(props => (
   <ul>
     {props.list.map(function(element) {
       return (
-        <li>
+        <li key={element.id}>
           <EntryComponent
             startDate={element.startDate}
             endDate={element.endDate}

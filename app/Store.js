@@ -15,6 +15,7 @@ class Store extends Component {
     this.setLoading = action(this.setLoading);
     this.setListFromStorage = action(this.setListFromStorage);
     this.storage = storage;
+    this.idCounter = 0;
 
     extendObservable(this, {
       active: null,
@@ -51,7 +52,7 @@ class Store extends Component {
   setEndForEntry(activeEntry = this.active, date = new Date()) {
     if (activeEntry) {
       activeEntry.endDate = date;
-      activeEntry = null;
+      this.active = null;
       return this.currentList.length - 1;
     } else {
       console.error("No timer is active");
@@ -62,6 +63,7 @@ class Store extends Component {
   addNewEntry(date = new Date()) {
     let entry = new EntryStore(date, null, this.hourlyRate);
     this.active = entry;
+    entry.id = this.idCounter++;
     this.currentList.push(entry);
     return this.currentList.length - 1;
   }
