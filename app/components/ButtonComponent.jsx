@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 const Button = observer((
-  { active = false, activeClickHandler, inactiveClickHandler }
+  { active, activeClickHandler, inactiveClickHandler }
 ) => {
   const clickHandler = event => {
     if (active) {
@@ -14,7 +14,7 @@ const Button = observer((
 
   return (
     <button
-      className={active ? "button__red__active" : "button__blue__inactive"}
+      className={"button " + (active ? "button__red__active" : "button__green__inactive")}
       onClick={clickHandler}
     >
       {active ? "Clock Out Now" : "Clock In Now"}

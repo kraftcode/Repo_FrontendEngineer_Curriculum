@@ -54,8 +54,8 @@ build
 # E2E Test reports
 reports
 
-#My tdd-katas
-tdd-katas
+#TDD katas
+katas
 
 # VSCode folder
 .vscode

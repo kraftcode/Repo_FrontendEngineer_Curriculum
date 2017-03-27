@@ -43,6 +43,9 @@ class Store extends Component {
 
   setListFromStorage(storageList) {
     this.currentList.replace(storageList.map(item => EntryStore.hydrate(item)));
+    if(!this.currentList[this.currentList.length-1].endDate){
+      this.active = this.currentList[this.currentList.length-1];
+    }
   }
 
   setLoading(isLoading) {
@@ -62,9 +65,9 @@ class Store extends Component {
 
   addNewEntry(date = new Date()) {
     let entry = new EntryStore(date, null, this.hourlyRate);
+    this.currentList.push(entry);
     this.active = entry;
     entry.id = this.idCounter++;
-    this.currentList.push(entry);
     return this.currentList.length - 1;
   }
 

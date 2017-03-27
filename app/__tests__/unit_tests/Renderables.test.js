@@ -23,6 +23,7 @@ describe.only("Store function tests. ", () => {
   it(
     "Should render Loading Message when store is loading from storage. ",
     () => {
+      store.setEndForEntry(store.active, new Date("2016-09-09 15:05:06"));
       const tree = render(<AppComponent store={store} />).html();
       expect(tree).toMatchSnapshot();
     }

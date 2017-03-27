@@ -3,15 +3,12 @@ import { observer } from "mobx-react";
 import EntryComponent from "./EntryComponent.jsx";
 
 const EntryListComponent = observer(props => (
-  <ul>
+  <ul className="list">
     {props.list.map(function(element) {
       return (
-        <li key={element.id}>
+        <li key={element.id} className="list">
           <EntryComponent
-            startDate={element.startDate}
-            endDate={element.endDate}
-            earnings={element.earnings}
-            duration={element.duration}
+            element={element}
           />
         </li>
       );
