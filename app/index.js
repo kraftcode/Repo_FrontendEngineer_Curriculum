@@ -5,11 +5,19 @@ import { useStrict, autorun } from "mobx";
 import "./main.css";
 import Storage from "./Storage";
 import Store from "./Store";
+import ErrorScreen from "./components/ErrorScreen.jsx";
 import AppComponent from "./components/AppComponent.jsx";
 import { STORAGE_KEY, HOURLY_RATE } from "./lib/Constants";
 
 // ==== SETUP
 useStrict(true); //mobx - will not allow mutating the state outside of Actions
+
+// catch all errors occuring in browser an respond by rendering generic error page:
+window.addEventListener('error', function (e) {
+  var error = e.error;
+  ReactDOM.render(<ErrorScreen />, document.getElementById("app"));
+  console.log('! ERROR: ', error);
+});
 
 const storage = new Storage();
 let store = new Store(storage, HOURLY_RATE);
