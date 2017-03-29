@@ -6,6 +6,7 @@ import Storage from "../../Storage";
 import AppComponent from "../../components/AppComponent.jsx";
 import EntryListComponent from "../../components/EntryListComponent.jsx";
 import Button from "../../components/ButtonComponent.jsx";
+import ErrorScreen from '../../components/ErrorScreen.jsx';
 
 // Importing and using Store.js as dependency since it was already tested in another test case. (J.F.'s philosophy)
 
@@ -21,15 +22,6 @@ describe.only("Store function tests. ", () => {
   });
 
   it(
-    "Should render Loading Message when store is loading from storage. ",
-    () => {
-      store.setEndForEntry(store.active, new Date("2016-09-09 15:05:06"));
-      const tree = render(<AppComponent store={store} />).html();
-      expect(tree).toMatchSnapshot();
-    }
-  );
-
-  it(
     "Should correctly render app tree with inactive button and two entries.",
     () => {
       store.setLoading(false);
@@ -38,7 +30,7 @@ describe.only("Store function tests. ", () => {
       store.setEndForEntry(store.active, new Date("2016-09-09 15:05:06"));
 
       const tree = render(<AppComponent store={store} />).html();
-      expect(tree).toMatchSnapshot();
+      expect(tree).toMatchSnapshot();  // to update snapshots and delete obsolet ones run: npm  test:unit -- -u
     }
   );
 
@@ -74,4 +66,22 @@ describe.only("Store function tests. ", () => {
     ).html();
     expect(entryList).toMatchSnapshot();
   });
+
+  it(
+    "Should display loading screen while app store is loading. ",
+    () => {
+      store.setLoading(true);
+      store.setEndForEntry(store.active, new Date("2016-09-09 15:05:06"));
+      second = store.addNewEntry(new Date("2016-07-08 15:05:06"));
+      store.setEndForEntry(store.active, new Date("2016-09-09 15:05:06"));
+      const tree = render(<AppComponent store={store} />).html();
+      expect(tree).toMatchSnapshot();
+    }
+  );
+
+  // it('Should display error screen when error occurs. ', () => {
+  //   var domException = new DOMException('TEST ERROR DELIBERATELY THROWN! ');
+  //   expect(<ErrorScreen />).toMatchSnapshot();
+  // });
+
 });

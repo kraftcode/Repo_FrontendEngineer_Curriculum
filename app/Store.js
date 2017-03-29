@@ -15,7 +15,6 @@ class Store extends Component {
     this.setLoading = action(this.setLoading);
     this.setListFromStorage = action(this.setListFromStorage);
     this.storage = storage;
-    this.idCounter = 0;
 
     extendObservable(this, {
       active: null,
@@ -67,7 +66,7 @@ class Store extends Component {
     let entry = new EntryStore(date, null, this.hourlyRate);
     this.currentList.push(entry);
     this.active = entry;
-    entry.id = this.idCounter++;
+    entry.id = Math.random().toString();
     return this.currentList.length - 1;
   }
 

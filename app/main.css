@@ -1,12 +1,6 @@
 @import '../node_modules/normalize.css/normalize.css';
 
-ul
-{
-  list-style-type: none;
-  padding-left: 0px;
-}
-
-
+/* Top level: ***********************************************************/
 
 .container
 {
@@ -21,7 +15,7 @@ ul
   border-collapse:collapse;
 }
 
-.container_error {
+.container__error {
   background-color: #b71c1c;
   display: flex;
   width: 100vw;
@@ -30,20 +24,7 @@ ul
   align-items: center;
 }
 
-.container_browsehappy {
-  background-color: #b71c1c;
-  font-family: Courier New, Courier, monospace;
-  color: #fff;
-}
-
-.list
-{
-  grid-column-start: 2;
-  grid-column-end: 8;
-  grid-row-start: 3;
-  background-color: transparent;
-}
-
+/* Company header: ***********************************************************/
 .companyheader
 {
   grid-column-start: 1;
@@ -56,6 +37,8 @@ ul
   background-color: #f5f5f5;
 }
 
+
+/* Button: *******************************************************************/
 .buttonfield
 {
   grid-column-start: 1;
@@ -81,12 +64,6 @@ ul
   transition: background-color 0.4s ease-in;
 }
 
-.button:active
-{
-  box-shadow: inset 0 1px 3px rgba(0,0,0,.12);
-  outline: 0;
-}
-
 .button__red__active
 {
   background: #e53935;
@@ -101,32 +78,25 @@ ul
   background: #4caf50;
 }
 
+/* just for kicks: */
 .button__green__inactive:hover {
   background: #388e3c;
 }
 
-.progressbar
+
+/* Todo List: ***************************************************************/
+ul
 {
-  /* Reset the default appearance */
-  -webkit-appearance: none;
-  width: 70%;
-  height: 4px;
-  margin-top: 8px;
+  list-style-type: none;
+  padding-left: 0px;
 }
 
-.emptyimage {
-  grid-column-start: 4;
-  grid-column-end: 5;
+.list
+{
+  grid-column-start: 2;
+  grid-column-end: 8;
   grid-row-start: 3;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.emptytext {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 4;
-  text-align: center;
+  background-color: transparent;
 }
 
 .entry
@@ -145,6 +115,16 @@ ul
   border-bottom: 1px solid #e0e0e0;
   height: 62px;
 }
+
+.progressbar
+{
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  width: 70%;
+  height: 4px;
+  margin-top: 8px;
+}
+
 
 .entry__inactive__topbox
 {
@@ -167,10 +147,6 @@ ul
   margin-top: 8px;
   margin-bottom: 8px;
   overflow: scroll;
-}
-
-.entry__active--hidden {
-  visibility: hidden;
 }
 
 .entry__active--nodisplay {
@@ -222,10 +198,13 @@ ul
 .entry__duration
 {
   margin-left: auto;
-  color: blue;
+  color: #0D47A1;
 }
 
-.container_loading {
+
+
+/* Special pages: ************************************************************/
+.container__loading {
   background-color: #212121;
   width: 100vw;
   height: 100vh;
@@ -268,11 +247,7 @@ ul
   margin: auto;
 }
 
-.row{
-  width: auto;
-}
-
-.image_error {
+.image__error {
   margin: auto;
   display: flex;
   justify-content: center;
@@ -281,13 +256,7 @@ ul
 }
 
 
-@-webkit-keyframes fadeIn {
-  0% { border-bottom: solid 1px #e0e0e0; }
-  100% { border-bottom: #fff; }
-  0% { background-color: #f5f5f5; }
-  100% { background-color: #fff; }
-}
-
+/* Animations: ***************************************************************/
 @keyframes spinner {
   0% { transform : rotate(0deg); }
   100% { transform: rotate(360deg); }

@@ -6,7 +6,7 @@ const EntryListComponent = observer(props => (
   <ul className="list">
     {props.list.map(function(element) {
       return (
-        <li key={element.id} className="list">
+        <li key={Math.random().toString()} className="list">
           <EntryComponent
             element={element}
           />

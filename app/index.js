@@ -8,7 +8,6 @@ import Store from "./Store";
 import ErrorScreen from "./components/ErrorScreen.jsx";
 import AppComponent from "./components/AppComponent.jsx";
 import { STORAGE_KEY, HOURLY_RATE } from "./lib/Constants";
-import Browsehappy from './components/Browsehappy.jsx';
 
 // ==== SETUP
 useStrict(true); //mobx - will not allow mutating the state outside of Actions
